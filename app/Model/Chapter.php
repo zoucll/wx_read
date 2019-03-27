@@ -41,7 +41,7 @@ class Chapter extends Model
 
     //
     public function editRecord($data,$id){
-        return  self::whvoeere('id',$id)->update($data);
+        return  self::where('id',$id)->update($data);
     }
 
 
@@ -54,4 +54,29 @@ class Chapter extends Model
             ->toArray();
         return $list;
     }
+
+    //获取小说的第一章节
+    public function getFirstChapter($novelId)
+    {
+        $first = self::where('novel_id',$novelId)
+            ->first();
+        return $first;
+    }
+    //获取小说上一章节内容  $novelId 小说id  $sort 章节号
+    public function getPrevChapter($novelId, $sort)
+    {
+        $prev = self::where('novel_id',$novelId)
+            ->where('sort', $sort-1)
+            ->first();
+        return $prev;
+    }
+    //获取小说下一章节内容  $novelId 小说id  $sort 章节号
+    public function getNextChapter($novelId, $sort)
+    {
+        $prev = self::where('novel_id',$novelId)
+            ->where('sort', $sort+1)
+            ->first();
+        return $prev;
+    }
+
 }
