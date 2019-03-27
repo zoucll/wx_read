@@ -48,9 +48,26 @@ Route::get('student/index','Studencontroller@index');
 //学习类路由组
 Route::prefix('study')->group(function(){
     Route::any('get/bonus','Study\BounsController@getBonus');//获取红包的路由
-    //Route::any('get/index','Stady\BonusController@getBonus');
-});
 
+    Route::get("guess/add",'Study\GuessController@add');//竞猜添加页面
+    Route::post('guess/doAdd','Study\GuessController@doAdd');//竞猜执行添加页面
+    Route::get("guess/list",'Study\GuessController@list');//竞猜列表页面
+    Route::get('guess/guess','Study\GuessController@guess');//竞猜添加的页面
+    Route::get('guess/result','Study\GuessController@checkResult');//竞猜添加的页面
+    Route::post('guess/doGuess','Study\GuessController@doGuess');//竞猜添加的页面
+
+
+
+    //抽奖页面
+    Route::get('lottery/index','Study\LotteryController@lottery');
+    //执行抽奖
+    Route::any('lottery/do','Study\LotteryController@doLottery');
+    //抽奖的结果
+    Route::get('lottery/list/{phone}','Study\LotteryController@list');
+
+
+
+});
 
 //登录页面
 Route::get('admin/login','Admin\LoginController@index');
