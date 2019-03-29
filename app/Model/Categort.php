@@ -15,7 +15,7 @@ class Categort extends Model
     public function getLists(){
         return self::paginate(5);
     }
-
+    
     /**
      * 添加分类
      */
@@ -42,5 +42,4 @@ class Categort extends Model
     public function getCateById($id){
         return  self::where('id',$id)->first();
     }
-
 }
