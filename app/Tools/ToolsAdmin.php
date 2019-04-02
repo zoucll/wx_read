@@ -38,6 +38,24 @@ class ToolsAdmin
         return $menus;
     }
 
+    //创建无限极分类树
+    public static function buildTreeString($data,$fid=0,$level=0,$fKey='fid'){
+        if(empty($data)){
+            return [];
+        }
+        static $tree = [];
+        foreach($data as $key =>$value){
+            //判断当前的父id是否帝国用传过来的id
+            if($value[$fKey]==$fid){
+                $value['level'] = $level;
+                $tree[] = $value;
+                unset($data[$key]);
+                self::buildTreeString($data,$value['id'],$level+1,$fKey);
+            }
+        }
+        return $tree;
+    }
+
     /**
      * 文件上传函数
      * @peram $files $object

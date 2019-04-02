@@ -188,4 +188,41 @@ Route::middleware('admin_auth')->prefix('admin')->group(function(){
 
 
     ###############################[小说相关]###############################################
+
+    ###############################[商品品牌相关]###############################################
+//    商品列表页面
+    Route::get('brand/list','Admin\BrandController@list')->name('admin.brand.list');
+    //获取列表数据
+    Route::post('brand/data/list','Admin\BrandController@getListDate')->name('admin.brand.data.list');
+    //商品添加页面
+    Route::get('brand/add','Admin\BrandController@add')->name('admin.brand.add');
+    //商品执行添加页面
+    Route::post('brand/doAdd','Admin\BrandController@doAdd')->name('admin.brand.doAdd');
+    //商品执行删除
+    Route::get('brand/del/{id}','Admin\BrandController@del')->name('admin.brand.del');
+    //商品编辑页面
+    Route::get('brand/edit/{id}','Admin\BrandController@edit')->name('admin.brand.edit');
+    //商品执行编辑操作
+    Route::post('brand/doEdit','Admin\BrandController@doEdit')->name('admin.brand.doEdit');
+
+    ###############################[商品分类相关]###############################################
+    //商品分类列表
+    Route::get("category/list",'Admin\CategoryController@list')->name('admin.category.list');
+    //获取商品分类列表接口的数据
+    Route::get('category/get/data/{fid?}','Admin\CategoryController@getListDate')->name('admin.category.get.data');
+    //商品分类添加
+    Route::get("category/add",'Admin\CategoryController@add')->name('admin.category.add');
+    //商品分类添加
+    Route::post("category/doAdd",'Admin\CategoryController@doAdd')->name('admin.category.doAdd');
+    //商品分类删除操作
+    Route::get("category/del/{id}",'Admin\CategoryController@del')->name('admin.category.del');
+    //商品分类修改
+    Route::get("category/edit/{id}",'Admin\CategoryController@edit')->name('admin.category.edit');
+    //商品分类执行修改
+    Route::post("category/doEdit",'Admin\CategoryController@doEdit')->name('admin.category.doEdit');
+    ###############################[商品分类相关]###############################################
+
+    ###############################[商品品牌相关]###############################################
+
+
 });
