@@ -240,6 +240,13 @@ Route::middleware('admin_auth')->prefix('admin')->group(function(){
 
     ###############################[文章分类相关]###############################################
 
+    ###############################[文章列表相关]###############################################
+    //文章列表
+    Route::get('article/article/list','Admin\ArticleController@list')->name('admin.article.article.list');
+//    文章添加
+    Route::get('article/article/add','Admin\ArticleController@add')->name('admin.article.article.add');
+    ###############################[文章列表相关]###############################################
+
 
 
 

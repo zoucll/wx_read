@@ -8,7 +8,7 @@
     <div class="pageheader">
         <h2><i class="fa fa-home"></i> 文章列表 <span>Subtitle goes here...</span></h2>
         <div class="breadcrumb-wrapper">
-            <a class="btn btn-sm btn-danger" href="/admin/article/add">+ 添加新文章</a>
+            <a class="btn btn-sm btn-danger" href="/admin/article/article/add">+ 添加新文章</a>
         </div>
     </div>
 @endsection
@@ -54,7 +54,7 @@
                     @endif
                     </tbody>
                 </table>
-                {{$list->links()}}
+                {{--{{$list->links()}}--}}
             </div><!-- table-responsive -->
         </div>
     </div>
