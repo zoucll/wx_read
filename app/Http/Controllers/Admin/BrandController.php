@@ -77,8 +77,8 @@ class BrandController extends Controller
         }
         unset($params['_token']);
         $id = $params['id'];
-        $res = Brand::doUpdate($params.$id);
-        if(!res){
+        $res = Brand::doUpdate($params,$id);
+        if(!$res){
             return redirect()->back()->with('msg','商品品牌修改失败');
         }
         return redirect('/admin/brand/list');

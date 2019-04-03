@@ -205,6 +205,8 @@ Route::middleware('admin_auth')->prefix('admin')->group(function(){
     //商品执行编辑操作
     Route::post('brand/doEdit','Admin\BrandController@doEdit')->name('admin.brand.doEdit');
 
+    ###############################[商品品牌相关]###############################################
+
     ###############################[商品分类相关]###############################################
     //商品分类列表
     Route::get("category/list",'Admin\CategoryController@list')->name('admin.category.list');
@@ -222,7 +224,23 @@ Route::middleware('admin_auth')->prefix('admin')->group(function(){
     Route::post("category/doEdit",'Admin\CategoryController@doEdit')->name('admin.category.doEdit');
     ###############################[商品分类相关]###############################################
 
-    ###############################[商品品牌相关]###############################################
+    ###############################[文章分类相关]###############################################
+    //文章分类列表
+    Route::get('article/category/list','Admin\ArticleCategoryController@list')->name('admin.article.category.list');
+    //文章分类添加
+    Route::get('article/category/add','Admin\ArticleCategoryController@add')->name('admin.article.category.add');
+    //文章分类执行添加
+    Route::post('article/category/store','Admin\ArticleCategoryController@store')->name('admin.article.category.store');
+    //文章分类删除
+    Route::get('article/category/del/{id}','Admin\ArticleCategoryController@del')->name('admin.article.category.del');
+    //文章分类编辑
+    Route::get('article/category/edit/{id}','Admin\ArticleCategoryController@edit')->name('admin.article.category.edit');
+    //文章分类执行编辑
+    Route::post('article/category/doEdit','Admin\ArticleCategoryController@doEdit')->name('admin.article.category.doEdit');
+
+    ###############################[文章分类相关]###############################################
+
+
 
 
 });
