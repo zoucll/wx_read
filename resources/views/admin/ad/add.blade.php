@@ -33,14 +33,18 @@
         </div>
         <div class="panel-body panel-body-nopadding">
 
-            <form class="form-horizontal form-bordered" action="" method="post">
+            <form class="form-horizontal form-bordered" action="/admin/ad/store" method="post" enctype="multipart/form-data">
                 {{csrf_field()}}
 
                 <div class="form-group">
                     <label class="col-sm-3 control-label">广告位置</label>
                     <div class="col-sm-6">
-                        <select class="form-control">
-                            <option value="1">首页banner</option>
+                        <select class="form-control" name="position_id">
+                            @if(!empty($position))
+                                @foreach($position as $p)
+                                    <option value="{{$p['id']}}">{{$p['position_name']}}</option>
+                                @endforeach
+                            @endif
                         </select>
                     </div>
                 </div>
@@ -102,17 +106,13 @@
         <script type="text/javascript" src="/js/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
         <link rel="stylesheet" type="text/css" href="/css/datetimepicker/bootstrap-datetimepicker.min.css">
         <script type="text/javascript">
-
             $(".alert-danger").hide();
-
             $("#btn-save").click(function(){
-
                 var image_url = $("input[name=image_url]").val();
                 var ad_name = $("input[name=ad_name]").val();
                 var ad_link = $("input[name=ad_link]").val();
                 var start_time = $("input[name=start_time]").val();
                 var end_time = $("input[name=end_time]").val();
-
                 if(image_url == ''){
                     $("#error_msg").text('请上传广告图片');
                     $(".alert-danger").show();
@@ -128,21 +128,17 @@
                     $(".alert-danger").show();
                     return false;
                 }
-
                 if(end_time == '' || start_time==''){
                     $("#error_msg").text('时间不能为空');
                     $(".alert-danger").show();
                     return false;
                 }
-
                 if(end_time < start_time){
                     $("#error_msg").text('结束时间不能小于开始时间');
                     $(".alert-danger").toggle();
                     return false;
                 }
-
             });
-
             //开始日期
             $("#start_time,#end_time").datetimepicker({
                 format: 'yyyy-mm-dd hh:ii:ss',
@@ -151,7 +147,6 @@
                 language:  'zh-CN',
                 minuteStep:1
             });
-
         </script>
 
 @endsection

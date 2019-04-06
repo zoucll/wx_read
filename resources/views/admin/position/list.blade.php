@@ -28,15 +28,19 @@
                     </tr>
                     </thead>
                     <tbody>
+                    @if(!empty($res))
+                    @foreach($res as $k=>$v)
                     <tr>
-                        <td>1</td>
-                        <td>##</td>
-                        <td>##</td>
+                        <td>{{$v['id']}}</td>
+                        <td>{{$v['position_name']}}</td>
+                        <td>{{$v['position_desc']}}</td>
                         <td>
-                            <a class="btn btn-sm btn-success" href="/admin/position/edit">编辑</a>
-                            <a class="btn btn-sm btn-danger" href="/admin/position/del">删除</a>
+                            <a class="btn btn-sm btn-success" href="/admin/position/edit/{{$v['id']}}">编辑</a>
+                            <a class="btn btn-sm btn-danger" href="/admin/position/del/{{$v['id']}}">删除</a>
                         </td>
                     </tr>
+                    @endforeach
+                    @endif
                     </tbody>
                 </table>
             </div><!-- table-responsive -->
