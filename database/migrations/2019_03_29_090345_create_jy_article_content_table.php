@@ -17,6 +17,7 @@ class CreateJyArticleContentTable extends Migration
             $table->increments('id');
             $table->integer('a_id')->deafault(0)->comment('文章id');
             $table->text('content')->comment('文章的内容');
+            $table->engine = 'InnoDB';
         });
     }
 

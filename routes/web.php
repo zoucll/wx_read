@@ -287,6 +287,21 @@ Route::middleware('admin_auth')->prefix('admin')->group(function(){
 
 
     ###############################[广告相关]###############################################
+    ###############################[商品类型相关]###############################################
+    //商品类型列表
+    Route::get('goods/type/list','Admin\GoodsTypeController@list')->name('admin.goods.type.list');
+    //商品类型添加
+    Route::get('goods/type/add','Admin\GoodsTypeController@add')->name('admin.goods.type.add');
+    //商品类型执行添加
+    Route::post('goods/type/store','Admin\GoodsTypeController@store')->name('admin.goods.type.store');
+    //商品类型删除
+    Route::get('goods/type/del/{id}','Admin\GoodsTypeController@del')->name('admin.goods.type.del');
+    //商品类型编辑
+    Route::get('goods/type/edit/{id}','Admin\GoodsTypeController@edit')->name('admin.goods.type.edit');
+    //商品类型执行编辑
+    Route::post('goods/type/doEdit','Admin\GoodsTypeController@doEdit')->name('admin.goods.type.doEdit');
+    ###############################[商品类型相关]###############################################
+
 
 
 
