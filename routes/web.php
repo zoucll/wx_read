@@ -208,20 +208,20 @@ Route::middleware('admin_auth')->prefix('admin')->group(function(){
     ###############################[商品品牌相关]###############################################
 
     ###############################[商品分类相关]###############################################
-    //商品分类列表
-    Route::get("category/list",'Admin\CategoryController@list')->name('admin.category.list');
-    //获取商品分类列表接口的数据
-    Route::get('category/get/data/{fid?}','Admin\CategoryController@getListDate')->name('admin.category.get.data');
-    //商品分类添加
-    Route::get("category/add",'Admin\CategoryController@add')->name('admin.category.add');
-    //商品分类添加
-    Route::post("category/doAdd",'Admin\CategoryController@doAdd')->name('admin.category.doAdd');
-    //商品分类删除操作
-    Route::get("category/del/{id}",'Admin\CategoryController@del')->name('admin.category.del');
-    //商品分类修改
-    Route::get("category/edit/{id}",'Admin\CategoryController@edit')->name('admin.category.edit');
-    //商品分类执行修改
-    Route::post("category/doEdit",'Admin\CategoryController@doEdit')->name('admin.category.doEdit');
+    //商品分类列表页面
+    Route::get('category/list', 'Admin\CategoryController@list')->name('admin.category.list');
+    //获取商品接口分类的数据
+    Route::get('category/get/data/{fid?}','Admin\CategoryController@getListData')->name('admin.category.get.data');
+    //商品添加页面
+    Route::get('category/add','Admin\CategoryController@add')->name('admin.category.add');
+    //商品执行添加操作
+    Route::post('category/doAdd','Admin\CategoryController@doAdd')->name('admin.category.doAdd');
+    //商品编辑页面
+    Route::get('category/edit/{id}','Admin\CategoryController@edit')->name('admin.category.edit');
+    //商品执行编辑操作
+    Route::post('category/doEdit','Admin\CategoryController@doEdit')->name('admin.category.doEdit');
+    //商品执行删除操作
+    Route::get('category/del/{id}','Admin\CategoryController@del')->name('admin.category.del');
     ###############################[商品分类相关]###############################################
 
     ###############################[文章分类相关]###############################################
@@ -301,6 +301,20 @@ Route::middleware('admin_auth')->prefix('admin')->group(function(){
     //商品类型执行编辑
     Route::post('goods/type/doEdit','Admin\GoodsTypeController@doEdit')->name('admin.goods.type.doEdit');
     ###############################[商品类型相关]###############################################
+    ###############################[商品属性相关]###############################################
+    //商品属性列表
+    Route::get('goods/attr/list/{typeid}','Admin\GoodsAttrController@list')->name('admin.goods.attr.list');
+    //商品属性添加
+    Route::get('goods/attr/add','Admin\GoodsAttrController@add')->name('admin.goods.attr.add');
+    //商品属性执行添加
+    Route::post('goods/attr/store','Admin\GoodsAttrController@store')->name('admin.goods.attr.store');
+    //商品属性删除
+    Route::get('goods/attr/del/{id}','Admin\GoodsAttrController@del')->name('admin.goods.attr.del');
+    //商品属性编辑
+    Route::get('goods/attr/edit/{id}','Admin\GoodsAttrController@edit')->name('admin.goods.attr.edit');
+    //商品属性执行编辑
+    Route::post('goods/attr/doEdit','Admin\GoodsAttrController@doEdit')->name('admin.goods.attr.doEdit');
+    ###############################[商品属性相关]###############################################
 
 
 

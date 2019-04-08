@@ -84,7 +84,7 @@
                                 </ul>
                             </li>
                         @else
-                            {{--判断首页是否存在--}}
+                            判断首页是否存在
                             <li @if(\Route::currentRouteName() == $menu['url']) class="active" @endif><a href="{{\Route::has($menu['url']) ? route($menu['url']): '#'}}"><i class="fa fa-home"></i> <span>{{$menu['name']}}</span></a></li>
                         @endif
                     @endforeach

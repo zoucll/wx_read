@@ -20,8 +20,9 @@ class GoodsTypeController extends Controller
     }
 
     //商品类型
-    public function list(){
+    public function list(){ 
         $assgin['list'] = $this->getDataList($this->type);
+        //dd($assgin);
         return view('admin.goodsType.list',$assgin);
     }
     //添加页面

@@ -16,8 +16,10 @@
 @section('content')
     {{csrf_field()}}
     <div class="row" id="cate_list">
+
         <div class="col-md-12">
             <div class="table-responsive">
+                <p><button v-if="fid > 0" class="btn btn-sm btn-success" @click="getCategoryList(0)">返回上级</button></p>
                 <table class="table table-primary  mb30">
                     <thead>
                     <tr>
@@ -32,11 +34,12 @@
                         <td>{cate.id}</td>
                         <td>{cate.cate_name}</td>
                         <td>
-                            <button v-if="cate.status ==1 " calss="btn btn-sm btn-success">可用</button>
-                            <button v-else calss="btn btn-sm btn-black">禁用</button>
+                            <button v-if="cate.status==1" class="btn btn-sm btn-success">可用</button>
+                            <button v-else class="btn btn-sm btn-black" >禁用</button>
+                        </td>
                         <td>
                             <button class="btn btn-sm btn-success" @click="getCategoryList(cate.id)">查看子级</button>&nbsp;
-                            <a class="btn btn-sm btn-danger" v-bind:href="'/admin/category/edit/'+cate.id">编辑</a>
+                            <a class="btn btn-sm btn-warning" v-bind:href="'/admin/category/edit/'+cate.id">编辑</a>&nbsp;
                             <button class="btn btn-sm btn-danger" @click="delCategory(cate.id)">删除</button>&nbsp;
                         </td>
                     </tr>
@@ -47,14 +50,15 @@
     </div>
     <script src="/js/vue.js"></script>
     <script type="text/javascript">
+
         var category = new Vue({
-            el:"#cate_list",
-            delimiters:['{','}'],
-            data:{
-                cate_list:[],
-                fid:0,
+            el: "#cate_list",
+            delimiters: ['{','}'],
+            data: {
+                cate_list: [],
+                fid: 0,
             },
-            created:function(){
+            created: function(){
                 this.getCategoryList();
             },
             methods:{
@@ -74,6 +78,7 @@
                         }
                     })
                 },
+                //删除操作
                 delCategory:function(id){
                     var that = this;
                     $.ajax({
@@ -91,4 +96,5 @@
             }
         })
     </script>
+
 @endsection
