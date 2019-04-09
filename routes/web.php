@@ -316,6 +316,26 @@ Route::middleware('admin_auth')->prefix('admin')->group(function(){
     Route::post('goods/attr/doEdit','Admin\GoodsAttrController@doEdit')->name('admin.goods.attr.doEdit');
     ###############################[商品属性相关]###############################################
 
+    ###############################[商品相关]###############################################
+    //商品列表
+    Route::get('goods/list','Admin\GoodsController@list')->name('admin.goods.list');
+    //商品列表接口数据
+    Route::any('goods/data/list','Admin\GoodsController@getGoodsData')->name('admin.goods.data.list');
+    //修改商品的属性
+    Route::post('goods/change/attr','Admin\GoodsController@changeAttr')->name('admin.goods.change.attr');
+    // 商品添加
+    Route::get('goods/add','Admin\GoodsController@add')->name('admin.goods.add');
+    //商品添加操作
+    Route::post('goods/store','Admin\GoodsController@store')->name('admin.goods.store');
+    //商品删除
+    Route::get('goods/del/{id}','Admin\GoodsController@del')->name('admin.goods.del');
+    // 商品修改
+    Route::get('goods/edit/{id}','Admin\GoodsController@edit')->name('admin.goods.edit');
+    //商品执行修改
+    Route::post('goods/save','Admin\GoodsController@doEdit')->name('admin.goods.save');
+
+    ###############################[商品相关]###############################################
+
 
 
 
