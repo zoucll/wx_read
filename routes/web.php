@@ -349,6 +349,21 @@ Route::middleware('admin_auth')->prefix('admin')->group(function(){
     //商品评论删除
     Route::get('goods/comment/del/{id}','Admin\CommentController@del')->name('admin.goods.comment.del');
     ###############################[商品相关]###############################################
+    ###############################[系统相关]###############################################
+    //支付方式列表
+    Route::get('payment/list','Admin\PaymentController@list')->name('admin.payment.list');
+    //支付添加页面
+    Route::get('payment/add','Admin\PaymentController@add')->name('admin.payment.add');
+    //支付执行添加
+    Route::post('payment/store','Admin\PaymentController@store')->name('admin.payment.store');
+    //支付编辑
+    Route::get('payment/edit/{id}','Admin\PaymentController@edit')->name('admin.payment.edit');
+    //支付执行编辑
+    Route::post('payment/save','Admin\PaymentController@doEdit')->name('admin.payment.save');
+    //支付删除
+    Route::get('payment/del/{id}','Admin\PaymentController@del')->name('admin.payment.del');
+
+    ###############################[系统相关]###############################################
 
 
 

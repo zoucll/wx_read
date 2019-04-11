@@ -6,7 +6,7 @@
 <!--页面顶部信息-->
 @section('pageHeader')
     <div class="pageheader">
-        <h2><i class="fa fa-home"></i> 广告位列表 <span>Subtitle goes here...</span></h2>
+        <h2><i class="fa fa-home"></i> 支付方式列表 <span>Subtitle goes here...</span></h2>
         <div class="breadcrumb-wrapper">
             <a class="btn btn-sm btn-danger" href="/admin/payment/add">+ 支付方式</a>
         </div>
@@ -31,17 +31,22 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>##</td>
-                        <td>##</td>
-                        <td>##</td>
-                        <td>##</td>
-                        <td>##</td>
-                        <td>
-                            <a class="btn btn-sm btn-danger" href="/admin/position/del">删除</a>
-                        </td>
-                    </tr>
+                    @if(!empty($payments))
+                        @foreach($payments as $pay)
+                            <tr>
+                                <td>{{$pay['id']}}</td>
+                                <td>{{$pay['pay_name']}}</td>
+                                <td>{{$pay['pay_desc']}}</td>
+                                <td><?php print_r(unserialize($pay['pay_config'])) ?></td>
+                                <td>{{$pay['pay_order']}}</td>
+                                <td>{{$pay['status'] == 1 ? "可用" : "禁用"}}</td>
+                                <td>
+                                    <a class="btn btn-sm btn-success" href="/admin/payment/edit/{{$pay['id']}}">编辑</a>
+                                    <a class="btn btn-sm btn-danger" href="/admin/payment/del/{{$pay['id']}}">删除</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
                     </tbody>
                 </table>
             </div><!-- table-responsive -->
