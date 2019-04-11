@@ -8,7 +8,7 @@
     <div class="pageheader">
         <h2><i class="fa fa-home"></i> 商品评论 <span>Subtitle goes here...</span></h2>
         <div class="breadcrumb-wrapper">
-            
+
         </div>
     </div>
 @endsection
@@ -31,20 +31,25 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>###</td>
-                        <td>###</td>
-                        <td><img  style="width:60px;" src="/images/photos/media2.png"></td>
-                        <td>2</td>
-                        <td>#####</td>
-                        <td>
-                            <a class="btn btn-sm btn-success" href="/admin/comment/del">删除
-                            </a>
-                        </td>
-                    </tr>
+                    @if(!empty($comment))
+                        @foreach($comment as $val)
+                            <tr>
+                                <td>{{$val->id or null}}</td>
+                                <td>{{$val->goods_name}}</td>
+                                <td>{{$val->username or 'admin'}}</td>
+                                <td><img  style="width:60px;" src="{{$val->image_url or '/images/photos/media2.png'}}"></td>
+                                <td>商评论品</td>
+                                <td>{{$val->content or null}}</td>
+                                <td>
+                                    <a class="btn btn-sm btn-success" href="/admin/goods/comment/del/{{$val->id}}">删除
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
                     </tbody>
                 </table>
+                {{$comment->links()}}
             </div><!-- table-responsive -->
         </div>
     </div>
@@ -58,50 +63,46 @@
             },
             //构造函数
             created:function(){
-
             },
             methods: {
                 //商品列表
                 getGoodsList: function(){
                     var that = this;
-
                     $.ajax({
                         url: "/goods/get/data",
                         type: "post",
-                        data: {_token: $("input[name=_token"]).val()},
+                        data: {_token: $("input[name=_token]").val()},
                         dataType:"json",
-                        success: function(res){
+                            success: function(res){
 
-                        }
+                            }
                     })
                 },
                 //修改商品属性
                 changeAttr: function(id,key,val){
                     var that = this;
-
                     $.ajax({
                         url: "/goods/change/attr",
                         type: "post",
-                        data: {_token: $("input[name=_token"]).val()},
+                        data: {_token: $("input[name=_token]").val()},
                         dataType:"json",
-                        success: function(res){
+                            success: function(res){
 
-                        }
-                    })
+                            }
+                     })
                 },
                 //执行删除的操作
                 goodsDel:function(id){
                     var that = this;
-
                     $.ajax({
                         url: "/goods/del/"+id,
                         type: "post",
-                        data: {_token: $("input[name=_token"]).val()},
+                        data: {_token: $("input[name=_token]").val()},
                         dataType:"json",
-                        success: function(res){
+                            success: function(res){
 
-                        }
-                    })
+                            }
+                     })
                 }
             }
         })

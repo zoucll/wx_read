@@ -1,27 +1,23 @@
 <?php
-
 namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     //
-    protected $table="comment";
-    //获取评论列表
-    public function getLists()
+    protected $table="jy_comment";
+    const
+        GOODS_TYPE = 1,//商品评论
+        END        = true;
+    //商品评论的列表
+    public function getCommentList($where = [])
     {
-        return self::select('comment.id','novel.name','user.username','content','comment.status')
-            ->leftJoin('novel','novel.id','=','comment.novel_id')
-            ->leftJoin('user','user.id','=','comment.user_id')
-            ->orderBy('comment.id','desc')
-            ->paginate(5)
-            ->toArray();
-    }
-    public function checkComment($id)
-    {
-        return self::where('id',$id)->where('status',1)->update(['status'=>2]);
-    }
-    public function delRecord($id)
-    {
-        return self::where('id',$id)->delete();
+        $comment  = self::select('jy_comment.id','goods_name','username','jy_user.image_url','jy_comment.content')
+            ->leftJoin('jy_goods','jy_comment.comment_id','=','jy_goods.id')
+            ->leftJoin('jy_user','jy_comment.user_id','=','jy_user.id')
+            ->where('type', self::GOODS_TYPE)
+            ->where($where)
+            ->orderBy('jy_comment.id','desc')
+            ->paginate(5);
+        return $comment;
     }
 }
