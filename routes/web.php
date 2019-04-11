@@ -333,6 +333,16 @@ Route::middleware('admin_auth')->prefix('admin')->group(function(){
     Route::get('goods/edit/{id}','Admin\GoodsController@edit')->name('admin.goods.edit');
     //商品执行修改
     Route::post('goods/save','Admin\GoodsController@doEdit')->name('admin.goods.save');
+    //商品sku和属性
+    Route::get('goods/sku/edit/{goods_id}','Admin\GoodsSkuController@edit')->name('admin.goods.sku.edit');
+    //商品添加操作
+    Route::post('goods/sku/save','Admin\GoodsSkuController@doEdit')->name('admin.goods.sku.save');
+    //商品sku属性列表接口
+    Route::any('goods/sku/attr/{goods_id}','Admin\GoodsSkuController@getSkuAttr')->name('admin.goods.sku.attr');
+    //商品属性值
+    Route::any('goods/attr/value/{id}','Admin\GoodsSkuController@getAttrValues')->name('admin.goods.attr.value');
+
+    Route::any('goods/sku/list/bind/{goods_id}','Admin\GoodsSkuController@getSkuList')->name('admin.goods.sku.list.bind');
 
     ###############################[商品相关]###############################################
 
