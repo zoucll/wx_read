@@ -372,6 +372,13 @@ Route::middleware('admin_auth')->prefix('admin')->group(function(){
     //执行删除
     Route::get('shipping/del/{id}','Admin\ShippingController@del')->name('admin.shipping.del');
     ###############################[系统相关]###############################################
+    ###############################[会员相关]###############################################
+    Route::get('member/list','Admin\MemberController@list')->name('admin.member.list');
+    //添加方式
+    Route::get('member/add','Admin\MemberController@add')->name('dmin.member.add');
+    //执行添加
+    Route::post('member/store','Admin\MemberController@store')->name('admin.member.store');
+    ###############################[会员相关]###############################################
 
 
 
