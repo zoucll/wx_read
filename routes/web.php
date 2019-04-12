@@ -363,6 +363,14 @@ Route::middleware('admin_auth')->prefix('admin')->group(function(){
     //支付删除
     Route::get('payment/del/{id}','Admin\PaymentController@del')->name('admin.payment.del');
 
+    //配送方式列表
+    Route::get('shipping/list','Admin\ShippingController@list')->name('admin.shipping.list');
+    //添加方式
+    Route::get('shipping/add','Admin\ShippingController@add')->name('admin.shipping.add');
+    //执行添加
+    Route::post('shipping/store','Admin\ShippingController@store')->name('admin.shipping.store');
+    //执行删除
+    Route::get('shipping/del/{id}','Admin\ShippingController@del')->name('admin.shipping.del');
     ###############################[系统相关]###############################################
 
 

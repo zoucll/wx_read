@@ -33,12 +33,12 @@
         </div>
         <div class="panel-body panel-body-nopadding">
 
-            <form class="form-horizontal form-bordered" action="" method="post">
+            <form class="form-horizontal form-bordered" action="/admin/shipping/store" method="post">
                 {{csrf_field()}}
                 <div class="form-group">
                     <label class="col-sm-3 control-label">配送方式</label>
                     <div class="col-sm-6">
-                        <input type="text" placeholder="配送方式" class="form-control" name="shpping_name" value="" />
+                        <input type="text" placeholder="配送方式" class="form-control" name="shipping_name" value="" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -71,19 +71,14 @@
 
         </div><!-- panel-body -->
         <script type="text/javascript">
-
             $(".alert-danger").hide();
-
             $("#btn-save").click(function(){
-
                 var shpping_name = $("input[name=shpping_name]").val();
-
                 if(shpping_name == ''){
                     $("#error_msg").text('名称不能为空');
                     $(".alert-danger").show();
                     return false;
                 }
-
             });
         </script>
 
