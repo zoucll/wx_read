@@ -8,7 +8,7 @@
     <div class="pageheader">
         <h2><i class="fa fa-home"></i> 会员列表 <span>Subtitle goes here...</span></h2>
         <div class="breadcrumb-wrapper">
-
+            
         </div>
     </div>
 @endsection
@@ -28,30 +28,29 @@
                         <th>账户积分</th>
                         <th>账户余额</th>
                         <th>用户状态</th>
+                        <th>邮箱地址</th>
+                        <th>默认收货地址</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @if(!empty($members))
-                        @foreach($members as $mem)
-                            <tr>
-                                <td>{{$mem->id}}</td>
-                                <td><img  style="width:60px;" src="{{$mem->image_url!="" ? $mem->image_url : '/images/photos/media2.png'}}"></td>
-                                <td>{{$mem->phone}}</td>
-                                <td>{{$mem->username}}</td>
-                                <td>{{$mem->score}}</td>
-                                <td>{{$mem->balance}}</td>
-                                <td>{{$mem->status ==1 ? "未激活" : "正常"}}</td>
-                                <td>
-                                    <a class="btn btn-sm btn-success" href="/admin/member/detail/{{$mem->id}}">查看详情
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    @endif
+                    <tr>
+                        <td>1</td>
+                        <td><img  style="width:60px;" src="/images/photos/media2.png"></td>
+                        <td>121321321</td>
+                        <td>##</td>
+                        <td>##</td>
+                        <td>##</td>
+                        <td>##</td>
+                        <td>##</td>
+                        <td>##</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/admin/member/detail">查看详情
+                            </a>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
-                {{$members->links()}}
             </div><!-- table-responsive -->
         </div>
     </div>
@@ -65,41 +64,48 @@
             },
             //构造函数
             created:function(){
+
             },
             methods: {
                 //商品列表
                 getGoodsList: function(){
                     var that = this;
+
                     $.ajax({
                         url: "/goods/get/data",
                         type: "post",
-                        data: {_token: $("input[name=_token]").val()},
+                        data: {_token: $("input[name=_token"]).val()},
                         dataType:"json",
-                            success: function(res){
+                        success: function(res){
+
                         }
                     })
                 },
                 //修改商品属性
                 changeAttr: function(id,key,val){
                     var that = this;
+
                     $.ajax({
                         url: "/goods/change/attr",
                         type: "post",
-                        data: {_token: $("input[name=_token]").val()},
+                        data: {_token: $("input[name=_token"]).val()},
                         dataType:"json",
-                            success: function(res){
+                        success: function(res){
+
                         }
                     })
                 },
                 //执行删除的操作
                 goodsDel:function(id){
                     var that = this;
+
                     $.ajax({
                         url: "/goods/del/"+id,
                         type: "post",
-                        data: {_token: $("input[name=_token]").val()},
+                        data: {_token: $("input[name=_token"]).val()},
                         dataType:"json",
-                            success: function(res){
+                        success: function(res){
+
                         }
                     })
                 }

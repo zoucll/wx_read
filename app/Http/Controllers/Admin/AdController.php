@@ -1,60 +1,62 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\AdPosition;
 use App\Model\Ad;
 use App\Tools\ToolsAdmin;
+use App\Tools\ToolsOss;
 class AdController extends Controller
 {
-    protected  $postion = null;
-    protected  $ad = null;
-
+    protected $postion = null;
+    protected $ad = null;
     public function __construct()
     {
         $this->position = new AdPosition();
         $this->ad = new Ad();
     }
-
-    //广告列表
-    public function  list(){
-        $assign['list'] = $this->ad->getList();
+    //广告列表页面
+    public function list()
+    {
+        $oss = new ToolsOss();
+        //echo $oss->getFileUrl('/uploads/2019-04-03/201904031028595503.jpeg',true);exit;
+        $list = $this->ad->getList();
+        foreach ($list as $key => $value) {
+            $list[$key]['image_url'] = $oss->getFileUrl($value['image_url'],true);
+        }
+        $assign['list'] = $list;
+        //dd($assign);
         return view('admin.ad.list',$assign);
     }
-    //广告添加
-    public function add(){
-        $assgin['position'] = $this->position->getList();//获取广告位列表
-        return view('admin.ad.add');
+    //添加页面
+    public function add()
+    {
+        $assign['position'] = $this->position->getList();//获取广告位列表
+        return view('admin.ad.add',$assign);
     }
-    //执行添加操作
-    public function store(Request $request){
+    //执行添加的操作
+    public function store(Request $request)
+    {
         $params = $request->all();
-        if(!isset($params['image_url'])||empty($params['image_url'])){
+        if(!isset($params['image_url']) || empty($params['image_url'])){
             return redirect()->back()->with('msg','请先上传图片');
         }
         $params['image_url'] = ToolsAdmin::uploadFile($params['image_url']);
-        $params= $this->delToken($params);
+        $params = $this->delToken($params);
         $ad = new Ad();
-        $res =$this->storeData($ad,$params);
+        $res = $this->storeData($ad, $params);
         if(!$res){
             return redirect()->back()->with('msg','添加广告失败');
         }
         return redirect('/admin/ad/list');
     }
-    //广告删除
-    public function del($id){
+    //编辑页面
+    public function edit($id)
+    {
         $ad = new Ad();
-        $res =$ad->del($id);
-        return redirect('/admin/ad/list',$res);
-    }
-    //广告编辑
-    public function edit($id){
-        $ad = new Ad();
-        $asgin['info']=$this->getDataInfo($ad,$id);
-        $assgin['position'] = $this->position->getList();//获取广告位列表
-        return view('/admin/ad/edit',$assgin);
+        $assign['info'] = $this->getDataInfo($ad, $id);
+        $assign['position'] = $this->position->getList();//获取广告位列表
+        return view('admin.ad.edit',$assign);
     }
     //执行编辑的过程
     public function doEdit(Request $request)
@@ -73,7 +75,11 @@ class AdController extends Controller
         }
         return redirect('/admin/ad/list');
     }
-
-
-
+    //删除广告
+    public function del($id)
+    {
+        $ad = new Ad();
+        $res = $this->delData($ad, $id);
+        return redirect('/admin/ad/list');
+    }
 }

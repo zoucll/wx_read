@@ -6,22 +6,22 @@ namespace App\Tools;
 class ToolsAdmin
 {
 
-    /*
-     * 无限极分类
+    /**
+     * 无限级分类的数据组装函数
      * @param $array $data
      * @param $fid 父类id
+     * @param $fkey
+     * @return array
      */
-    public static function buildTree($data, $fid=0)
+    public static function buildTree($data, $fid=0, $fkey = "fid")
     {
         if(empty($data)){
             return [];
         }
-        //dd($data);
         static $menus = [];//定义一个静态变量，用来存储无限级分类的数据
         foreach ($data as $key => $value) {
-            //dd($value);
 
-            if($value['fid'] == $fid){//当前循环的内容中fid是否等于函数fid参数
+            if($value[$fkey] == $fid){//当前循环的内容中fid是否等于函数fid参数
                 if(!isset($menus[$fid])){//如果数据没有fid的key
                     $menus[$value['id']] = $value;
                 }else{
@@ -34,6 +34,30 @@ class ToolsAdmin
         }
         return $menus;
     }
+    /**
+     * @desc  按照传值引用获取信息
+     * @param $data
+     * @param string $fKey
+     * @return  array
+     */
+    public static function getTreeQuote($data, $fKey = 'fid')
+    {
+        $items = [];
+        foreach ($data as $item){
+            $items[$item['id']] = $item;
+        }
+        $tree = [];
+        foreach ($items as $key=>$value){
+            //当存在值的时候
+            if(isset($items[$value[$fKey]])){
+                $items[$value[$fKey]]['son'][]= &$items[$key];
+            }else{
+                $tree[] = &$items[$key];//创建初始的引用
+            }
+        }
+        return $tree;
+    }
+
     //创建无限级分类树的结构
     public static function buildTreeString($data,$fid=0, $level=0,$fKey="fid")
     {
@@ -65,15 +89,19 @@ class ToolsAdmin
             return "";
         }
         //文件上传的目录
-        $basePath = 'uploads/'.date("Y-m-d",time());
+        //$basePath = 'uploads/'.date("Y-m-d",time());
         //目录不存在
-        if(!file_exists($basePath)){
-            @mkdir($basePath, 755, true);
-        }
+        // if(!file_exists($basePath)){
+        // 	@mkdir($basePath, 755, true);
+        // }
         //文件名字
-        $filename = "/".date("YmdHis",time()).rand(0,10000).".".$files->extension();
-        @move_uploaded_file($files->path(), $basePath.$filename);//执行文件的上传
-        return '/'.$basePath.$filename;
+        //$filename = "/".date("YmdHis",time()).rand(0,10000).".".$files->extension();
+        //由原来的正常改为oss 文件上传
+        //@move_uploaded_file($files->path(), $basePath.$filename);//执行文件的上传
+        $oss = new ToolsOss();
+        //dd($files);
+        $filename = $oss->putFile($files);
+        return $filename;
     }
     /**
      * 获取用户所有权限的主键id
@@ -103,11 +131,6 @@ class ToolsAdmin
         $pids = self::getUserPermissionIds($userId); //获取所有权限节点id
         $urls = \App\Model\Permissions::getUrlsByIds($pids);//根据权限节点id获取所有的权限的url地址
         return $urls;
-    }
-    //生成货号
-    public static function buildGoodsSn($string = 16)
-    {
-        return "JY".date("YmdHis",time());
     }
 
 }
