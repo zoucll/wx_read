@@ -87,9 +87,9 @@
                         type: "post",
                         data: {_token: $("input[name=_token]").val()},
                         dataType:"json",
-                            success: function(res){
-                        }
-                    })
+                        success: function(res){
+                    }
+                })
                 },
                 //执行删除的操作
                 goodsDel:function(id){

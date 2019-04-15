@@ -1,12 +1,15 @@
 <?php
-
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
  * @package  Laravel
  * @author   Taylor Otwell <taylor@laravel.com>
  */
+$redis = new \Redis();
 
+$redis->connect('127.0.0.1','6379');
+
+$redis->set('liu','1232144');
 define('LARAVEL_START', microtime(true));
 
 /*
@@ -58,3 +61,4 @@ $response = $kernel->handle(
 $response->send();
 
 $kernel->terminate($request, $response);
+

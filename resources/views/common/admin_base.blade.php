@@ -121,8 +121,8 @@
                     <li>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                <img src="{{$user_pic}}}" alt="" />
-                                {{$username}}}
+                                <img src="{{$user_pic}}" alt="" />
+                                {{$username}}
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-usermenu pull-right">

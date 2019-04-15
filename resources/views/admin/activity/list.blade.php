@@ -30,17 +30,19 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>##</td>
-                        <td>##</td>
-                        <td>##</td>
-                        <td>##</td>
-                        <td>
-                            <a class="btn btn-sm btn-success" href="/admin/ad/edit">编辑</a>
-                            <a class="btn btn-sm btn-danger">删除</a>
-                        </td>
-                    </tr>
+                    @foreach($activites as $ac)
+                        <tr>
+                            <td>{{$ac['id']}}</td>
+                            <td>{{$ac['name']}}</td>
+                            <td>{{$ac['start_time']}}</td>
+                            <td>{{$ac['end_time']}}</td>
+                            <td><?php print_r(unserialize($ac['activity_config']))?></td>
+                            <td>
+                                <a class="btn btn-sm btn-success" href="/admin/activity/edit/{{$ac['id']}}">编辑</a>
+                                <a class="btn btn-sm btn-danger" href="/admin/activity/del/{{$ac['id']}}">删除</a>
+                            </td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div><!-- table-responsive -->

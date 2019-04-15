@@ -375,10 +375,21 @@ Route::middleware('admin_auth')->prefix('admin')->group(function(){
     ###############################[会员相关]###############################################
     Route::get('member/list','Admin\MemberController@list')->name('admin.member.list');
     //添加方式
-    Route::get('member/add','Admin\MemberController@add')->name('dmin.member.add');
+    Route::get('member/add','Admin\MemberController@add')->name('admin.member.add');
     //执行添加
     Route::post('member/store','Admin\MemberController@store')->name('admin.member.store');
     ###############################[会员相关]###############################################
+    ###############################[活动相关]###############################################
+    Route::get('activity/list','Admin\ActivityController@list')->name('admin.activity.list');
+    //添加方式
+    Route::get('activity/add','Admin\ActivityController@add')->name('admin.activity.add');
+    //执行添加
+    Route::post('activity/store','Admin\ActivityController@store')->name('admin.activity.store');
+    //编辑页面
+    Route::get('activity/edit/{id}','Admin\ActivityController@edit')->name('admin.activity.edit');
+    //删除页面
+    Route::get('activity/del/{id}','Admin\ActivityController@del')->name('admin.activity.del');
+    ###############################[活动相关]###############################################
 
 
 

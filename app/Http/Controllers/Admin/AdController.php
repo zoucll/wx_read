@@ -9,6 +9,7 @@ use App\Model\Ad;
 use App\Tools\ToolsAdmin;
 class AdController extends Controller
 {
+
     protected  $postion = null;
     protected  $ad = null;
 
