@@ -69,14 +69,14 @@ Route::prefix('study')->group(function(){
 
 });
 
-//登录页面
-Route::get('admin/login','Admin\LoginController@index');
-//执行登录
-Route::post('admin/doLogin','Admin\LoginController@doLogin');
-//用户退出
-Route::get('admin/logout','Admin\LoginController@logout');
-//管路后台RBAC功能类的路由组
-Route::middleware('admin_auth')->prefix('admin')->group(function(){
+    //登录页面
+    Route::get('admin/login','Admin\LoginController@index');
+    //执行登录
+    Route::post('admin/doLogin','Admin\LoginController@doLogin');
+    //用户退出
+    Route::get('admin/logout','Admin\LoginController@logout');
+    //管路后台RBAC功能类的路由组
+    Route::middleware('admin_auth')->prefix('admin')->group(function(){
     //管理后台首页
     Route::get('home','Admin\HomeController@home')->name('admin.home');
     ###############################[权限相关]###############################################
@@ -380,6 +380,7 @@ Route::middleware('admin_auth')->prefix('admin')->group(function(){
     Route::post('member/store','Admin\MemberController@store')->name('admin.member.store');
     ###############################[会员相关]###############################################
     ###############################[活动相关]###############################################
+    //列表
     Route::get('activity/list','Admin\ActivityController@list')->name('admin.activity.list');
     //添加方式
     Route::get('activity/add','Admin\ActivityController@add')->name('admin.activity.add');
@@ -390,6 +391,16 @@ Route::middleware('admin_auth')->prefix('admin')->group(function(){
     //删除页面
     Route::get('activity/del/{id}','Admin\ActivityController@del')->name('admin.activity.del');
     ###############################[活动相关]###############################################
+    ###############################[地区相关]###############################################
+    //列表
+    Route::get('region/list/{fid?}','Admin\RegionController@list')->name('admin.region.list');
+    //添加方式
+    Route::get('region/add','Admin\RegionController@add')->name('admin.region.add');
+    //执行添加
+    Route::post('region/store','Admin\RegionController@store')->name('admin.region.store');
+    //删除页面
+    Route::get('region/del{id}','Admin\RegionController@del')->name('admin.region.del');
+    ###############################[地区相关]###############################################
 
 
 
