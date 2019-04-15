@@ -34,6 +34,9 @@ class AdController extends Controller
         if(!isset($params['image_url'])||empty($params['image_url'])){
             return redirect()->back()->with('msg','请先上传图片');
         }
+
+        $files = $params['image_url'];
+
         $params['image_url'] = ToolsAdmin::uploadFile($params['image_url']);
         $params= $this->delToken($params);
         $ad = new Ad();
