@@ -7,7 +7,7 @@
 @section('pageHeader')
     <div class="pageheader">
         <h2><i class="fa fa-home"></i> 红包发送记录 <span>Subtitle goes here...</span></h2>
-        
+
     </div>
 @endsection
 
@@ -29,19 +29,30 @@
                     </tr>
                     </thead>
                     <tbody>
-                
-                    <tr>
-                        <td>##</td>
-                        <td>##</td>
-                        <td>##</td>
-                        <td>##</td>
-                        <td>##</td>
-                        <td>##</td>
-                        <td>##</td>
-                    </tr>
-                 
+                    @if(!empty($user_bonus))
+                        @foreach($user_bonus as $bonus)
+                            <tr>
+                                <td>{{$bonus->id}}</td>
+                                <td>{{$bonus->username}}</td>
+                                <td>{{$bonus->phone}}</td>
+                                <td>{{$bonus->bonus_name}}</td>
+                                <td>{{$bonus->start_time}}</td>
+                                <td>{{$bonus->end_time}}</td>
+                                <td>
+                                    @if($bonus->status == 1)
+                                        未使用
+                                    @elseif($bonus->status == 2)
+                                        已使用
+                                    @else
+                                        已过期
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
                     </tbody>
                 </table>
+                {{$user_bonus->links()}}
             </div><!-- table-responsive -->
         </div>
     </div>

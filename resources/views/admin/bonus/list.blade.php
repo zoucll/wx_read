@@ -23,7 +23,7 @@
                     <tr>
                         <th>ID</th>
                         <th>红包名字</th>
-                        <th>红包金额</th>
+                        <th >红包金额</th>
                         <th>使用条件</th>
                         <th>有效天数</th>
                         <th>发送开始日期</th>
@@ -33,27 +33,28 @@
                     </tr>
                     </thead>
                     <tbody>
-                @if(!empty($bonus_list))
-                 @foreach($bonus_list as $bonus)
-                    <tr>
-                        <td>1</td>
-                        <td>##</td>
-                        <td>##</td>
-                        <td>##</td>
-                        <td>##</td>
-                        <td>##</td>
-                        <td>##</td>
-                        <td>##</td>
-                        <td>
-                            <a class="btn btn-sm btn-warning" href="/admin/ad/edit">发红包</a>
-                            <a class="btn btn-sm btn-success" href="/admin/ad/edit">编辑</a>
-                            <a class="btn btn-sm btn-danger">删除</a>
-                        </td>
-                    </tr>
-                 @endforeach
-                @endif
+                    @if(!empty($bonus_list))
+                        @foreach($bonus_list as $bonus)
+                            <tr>
+                                <td>{{$bonus->id}}</td>
+                                <td>{{$bonus->bonus_name}}</td>
+                                <td>{{$bonus->money}}</td>
+                                <td>满{{$bonus->min_money}}元可用</td>
+                                <td>{{$bonus->expires}}</td>
+                                <td>{{$bonus->send_start_date}}</td>
+                                <td>{{$bonus->send_end_date}}</td>
+                                <td>{{$bonus->status == 1 ?'可用':'不可用'}}</td>
+                                <td>
+                                    <a class="btn btn-sm btn-warning" href="/admin/bonus/send/{{$bonus->id}}">发红包</a>
+                                    <a class="btn btn-sm btn-success" href="/admin/ad/edit">编辑</a>
+                                    <a class="btn btn-sm btn-danger" href="/admin/bonus/del/{{$bonus->id}}">删除</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
                     </tbody>
                 </table>
+                {{$bonus_list->links()}}
             </div><!-- table-responsive -->
         </div>
     </div>

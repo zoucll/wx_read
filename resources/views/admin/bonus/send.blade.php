@@ -18,7 +18,7 @@
             {{ session('msg') }}
         </div>
     @endif
-    <div class="alert alert-danger">
+    <div class="alert alert-danger" id="alert-danger">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <span id="error_msg"></span>
     </div>
@@ -33,10 +33,11 @@
         </div>
         <div class="panel-body panel-body-nopadding">
 
-            <form class="form-horizontal form-bordered" action="" method="post">
+            <form class="form-horizontal form-bordered" action="/admin/bonus/doSend" method="post">
                 {{csrf_field()}}
 
                 <input type="hidden" name="bonus_id" value="{{$bonus_info->id}}">
+                <input type="hidden" name="expires" value="{{$bonus_info->expires}}">
                 <div class="form-group">
                     <label class="col-sm-3 control-label">红包名称</label>
                     <div class="col-sm-6">
@@ -64,21 +65,15 @@
         <script type="text/javascript" src="/js/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
         <link rel="stylesheet" type="text/css" href="/css/datetimepicker/bootstrap-datetimepicker.min.css">
         <script type="text/javascript">
-
-            $(".alert-danger").hide();
-
-                $("#btn-save").click(function(){
-
+            $("#alert-danger").hide();
+            $("#btn-save").click(function(){
                 var phone = $("input[name=phone]").val();
-
                 if(phone == ''){
                     $("#error_msg").text('请输入用户的手机');
                     $(".alert-danger").show();
                     return false;
                 }
-
             });
-
             //开始日期
             $("#start_time,#end_time").datetimepicker({
                 format: 'yyyy-mm-dd hh:ii:ss',
@@ -87,7 +82,6 @@
                 language:  'zh-CN',
                 minuteStep:1
             });
-
         </script>
 
 @endsection

@@ -36,7 +36,7 @@
             <form class="form-horizontal form-bordered" action="/admin/bonus/store" method="post">
                 {{csrf_field()}}
 
-                 <div class="form-group">
+                <div class="form-group">
                     <label class="col-sm-3 control-label">红包名称</label>
                     <div class="col-sm-6">
                         <input type="text" placeholder="红包名称" class="form-control" name="bonus_name" value="" />
@@ -94,11 +94,8 @@
         <script type="text/javascript" src="/js/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
         <link rel="stylesheet" type="text/css" href="/css/datetimepicker/bootstrap-datetimepicker.min.css">
         <script type="text/javascript">
-
             $(".alert-danger").hide();
-
             $("#btn-save").click(function(){
-
                 var money = $("input[name=money]").val();
                 var bonus_name = $("input[name=bonus_name]").val();
                 var min_money = $("input[name=min_money]").val();
@@ -106,7 +103,6 @@
                 var send_start_date = $("input[name=send_start_date]").val();
                 var send_end_date = $("input[name=send_end_date]").val();
 
-                
                 if(bonus_name == ''){
                     $("#error_msg").text('红包名称不能为空');
                     $(".alert-danger").show();
@@ -127,21 +123,17 @@
                     $(".alert-danger").show();
                     return false;
                 }
-
                 if(send_end_date == '' || send_start_date==''){
                     $("#error_msg").text('时间不能为空');
                     $(".alert-danger").show();
                     return false;
                 }
-
                 if(send_end_date < send_start_date){
                     $("#error_msg").text('结束时间不能小于开始时间');
                     $(".alert-danger").toggle();
                     return false;
                 }
-
             });
-
             //开始日期
             $("#start_time,#end_time").datetimepicker({
                 format: 'yyyy-mm-dd',
@@ -150,7 +142,6 @@
                 language:  'zh-CN',
                 minuteStep:3
             });
-
         </script>
 
 @endsection

@@ -401,6 +401,20 @@ Route::prefix('study')->group(function(){
     //删除页面
     Route::get('region/del{id}','Admin\RegionController@del')->name('admin.region.del');
     ###############################[地区相关]###############################################
+    ###############################[红包相关]###############################################
+    //列表
+    Route::get('bonus/list','Admin\BonusController@list')->name('admin.bonus.list');
+    //添加方式
+    Route::get('bonus/add','Admin\BonusController@add')->name('admin.bonus.add');
+    //执行添加
+    Route::post('bonus/store','Admin\BonusController@store')->name('admin.bonus.store');
+    //执行删除
+    Route::get('bonus/del/{id}','Admin\BonusController@del')->name('admin.bonus.del');
+    //发红包
+    Route::get('bonus/send/{bonus_id}','Admin\BonusController@sendBonus')->name('admin.bonus.send');
+    Route::post('bonus/doSend','Admin\BonusController@doSendBonus')->name('admin.bonus.doSend');
+    Route::get('user/bonus/list','Admin\BonusController@userBonusList')->name('admin.user.bonus.list');
+    ###############################[红包相关]###############################################
 
 
 
