@@ -415,6 +415,10 @@ Route::prefix('study')->group(function(){
     Route::post('bonus/doSend','Admin\BonusController@doSendBonus')->name('admin.bonus.doSend');
     Route::get('user/bonus/list','Admin\BonusController@userBonusList')->name('admin.user.bonus.list');
     ###############################[红包相关]###############################################
+    ###############################[批次管理]###############################################
+    
+    ###############################[批次管理]###############################################
+
 
 
 
