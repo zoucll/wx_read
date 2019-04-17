@@ -416,7 +416,14 @@ Route::prefix('study')->group(function(){
     Route::get('user/bonus/list','Admin\BonusController@userBonusList')->name('admin.user.bonus.list');
     ###############################[红包相关]###############################################
     ###############################[批次管理]###############################################
-
+    //列表页面
+    Route::get('batch/list','Admin\BatchController@list')->name('admin.batch.list');
+    //添加页面
+    Route::get('batch/add','Admin\BatchController@add')->name('admin.batch.add');
+    //执行添加 页面
+    Route::post('batch/store','Admin\BatchController@store')->name('admin.batch.store');
+    //执行批次管理
+    Route::get('batch/do/{id}','Admin\BatchController@doBatch')->name('admin.batch.do');
     ###############################[批次管理]###############################################
 
 
