@@ -425,6 +425,18 @@ Route::prefix('study')->group(function(){
     //执行批次管理
     Route::get('batch/do/{id}','Admin\BatchController@doBatch')->name('admin.batch.do');
     ###############################[批次管理]###############################################
+    ###############################[订单管理]###############################################
+        //订单列表
+        Route::get('order/list','Admin\OrderController@list')->name('admin.order.list');
+        //订单详情页面
+        Route::get('order/detail/{id}','Admin\OrderController@detail')->name('admin.order.detail');
+        //订单导出的功能
+        Route::get('order/export','Admin\OrderController@export')->name('admin.order.export');
+        //订单导入功能
+        Route::get('order/import','Admin\OrderController@import')->name('admin.order.import');
+        //执行导入功能
+        Route::post('order/doImport','Admin\OrderController@doImport')->name('admin.order.doImport');
+    ###############################[订单管理]###############################################
 
 
 
