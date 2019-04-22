@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\Region;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Role;
@@ -154,6 +155,34 @@ class AdminUserController extends Controller
             Log::error('用户添加失败'.$e->getMessage());
 
             return redirect()->back()->with('error_msg',$e->getMessage());
+        }
+        return redirect('/admin/user/list');
+    }
+
+    //验证密码
+    public function  password(){
+        return view('admin.user.password');
+    }
+
+    //执行修改密码
+    public function doPassword(Request $request){
+        $params = $request->all();
+        //检测密码是否正确
+        $adminUser = new AdminUsers();
+
+        $data = $this->getDataInfo($adminUser,$params['id']);
+        if($data->$password!=md5($params['old_password'])){
+            return redirect()->back()->with('msg','原密码错误');
+        }
+
+        //数据
+        $datas = [
+            'password'=>md5($params['password'])
+        ];
+        $adminUser1 = AdminUsers::find($params['id']);
+        $res = $this->storeData($adminUser1,$datas);
+        if(!$res){
+            return redirect()->back()->with('msg','密码修改失败');
         }
         return redirect('/admin/user/list');
     }

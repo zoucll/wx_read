@@ -105,6 +105,9 @@ Route::prefix('study')->group(function(){
     Route::get('/user/edit{id}','Admin\AdminUserController@edit')->name('admin.user.edit');
     //用户执行编辑页面
     Route::post('/user/doEdit','Admin\AdminUserController@doEdit')->name('admin.user.doEdit');
+    //验证密码
+    Route::get('/user/password','Admin\AdminUserController@password')->name('admin.user.password');
+    Route::post('/user/doPassword','Admin\AdminUserController@doPassword')->name('admin.user.doPassword');
     ###############################[用户相关]###############################################
 
     ###############################[角色相关]###############################################
@@ -437,10 +440,5 @@ Route::prefix('study')->group(function(){
         //执行导入功能
         Route::post('order/doImport','Admin\OrderController@doImport')->name('admin.order.doImport');
     ###############################[订单管理]###############################################
-
-
-
-
-
 
 });
