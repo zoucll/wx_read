@@ -75,6 +75,13 @@ Route::prefix('study')->group(function(){
     Route::post('admin/doLogin','Admin\LoginController@doLogin');
     //用户退出
     Route::get('admin/logout','Admin\LoginController@logout');
+    //忘记密码页面
+    Route::get('admin/forget/password','Admin\LoginController@forget');
+    Route::post('admin/forget/sendEmail','Admin\LoginController@sendEmail');
+    //重新设置密码
+    Route::get('admin/forget/reset','Admin\LoginController@reset');
+    Route::post('admin/reset/password/save','Admin\LoginController@save');
+
     //管路后台RBAC功能类的路由组
     Route::middleware('admin_auth')->prefix('admin')->group(function(){
     //管理后台首页
@@ -105,9 +112,10 @@ Route::prefix('study')->group(function(){
     Route::get('/user/edit{id}','Admin\AdminUserController@edit')->name('admin.user.edit');
     //用户执行编辑页面
     Route::post('/user/doEdit','Admin\AdminUserController@doEdit')->name('admin.user.doEdit');
-    //验证密码
+    //修改密码的页面
     Route::get('/user/password','Admin\AdminUserController@password')->name('admin.user.password');
-    Route::post('/user/doPassword','Admin\AdminUserController@doPassword')->name('admin.user.doPassword');
+    //保存修改密码
+    Route::post('/user/password/save','Admin\AdminUserController@updatePwd')->name('admin.user.password.save');
     ###############################[用户相关]###############################################
 
     ###############################[角色相关]###############################################

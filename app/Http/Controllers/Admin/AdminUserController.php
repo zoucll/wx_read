@@ -1,8 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
-
-use App\Model\Region;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Role;
@@ -13,29 +10,28 @@ use Illuminate\Support\Facades\DB;
 use Log;
 class AdminUserController extends Controller
 {
-    //
-    public function create(){
-        $role = new Role();
-        $assign['roles']=$role->getRoles();//获取角色列表
-        return view('admin.users.create',$assign);
-    }
 
     /**
-     * @desc 执行用户添加操作
-     * $param $request array
+     *用户添加页面
+     */
+    public function create()
+    {
+        $role = new Role();
+        $assign['roles'] = $role->getRoles();//获取角色列表
+        return view('admin.users.create', $assign);
+    }
+    /**
+     *@desc 执行用户添加操作
+     *@param $request array
      */
     public function store(Request $request)
     {
         $params = $request->all();
-
         //文件上传
         $image_url = ToolsAdmin::uploadFile($params['image_url']);
-
         try{
             DB::beginTransaction();//开启事务
-
             $adminUser = new AdminUsers();
-
             //添加用户
             $data = [
                 'username' => $params['username'] ?? '',
@@ -44,7 +40,7 @@ class AdminUserController extends Controller
                 'is_super'  => $params['is_super'] ?? 1,
                 'status'    => $params['status'] ?? 1,
             ];
-
+            //dd($data);
             $adminUser->addRecord($data);
             $id = $adminUser->getMaxId();//获取最新添加的用户id
             //添加用户和角色关联关系
@@ -54,139 +50,115 @@ class AdminUserController extends Controller
                 'role_id' => $params['role_id'] ?? 0
             ];
             $userRole->addUserRole($data1);
-
             DB::commit();//提交事务
-        }catch (\Exception $e){
+        }catch(\Exception $e){
             DB::rollBack();//事务回滚
-
             Log::error('用户添加失败'.$e->getMessage());
             return redirect()->back();
-
         }
         return redirect('/admin/user/list');
     }
-
     /**
-     * 用户列表页面
+     *用户列表页面
      */
-    public function list(){
+    public function list()
+    {
         $list = AdminUsers::getList();
-
-        return view('admin.users.list',['list'=>$list]);
+        return view('admin.users.list',['list' => $list]);
     }
-
     /**
      * 用户删除操作
      */
-    public  function  delUser($id){
+    public function delUser($id)
+    {
         try{
-            AdminmUser::del($id);//删除用户
-
+            AdminUsers::del($id);//删除用户
             $userRole = new UserRole();
-
-            $userRole->delByRoleId($id);//删除用户角色关联关系
-
+            $userRole->delByUserId($id);//删除用户角色关联关系;
         }catch(\Exception $e){
-            Log::error('用户删除失败',$e->getMessage());
+            Log::error('用户删除失败'.$e->getMessage());
         }
 
         return redirect('/admin/user/list');
     }
-
     /**
      * 用户编辑页面
+     * @param $id
      */
-    public function edit($id){
+    public function edit($id)
+    {
         $role = new Role();
         $assign['roles'] = $role->getRoles();//获取角色列表
-
-        $userRole  = new UserRole();
+        $userRole = new UserRole();
         $assign['role_id'] = $userRole->getByUserId($id)->role_id ?? 0;//获取当前编辑用户的角色id
-
-        $assign['user'] = AdminUsers::getByUserId($id);//获取用户的信息
-
+        $assign['user'] = AdminUsers::getUserById($id);//获取用户的信息
         return view('admin.users.edit',$assign);
     }
-
     /**
-     * 执行用户编辑操作
+     * 执行用户的编辑操作
      */
-    public function doEdit(Request $request){
+    public function doEdit(Request $request)
+    {
         $params = $request->all();
-
         $image_url = "";
-
         if(!empty($params['image_url'])){
             $image_url = ToolsAdmin::uploadFile($params['image_url']);
         }
         try{
             DB::beginTransaction();//开启事务
-
             $adminUser = new AdminUsers();
-
             //用户修改的操作
-            $data =[
-                'username'=>$params['username'] ?? '',
-                'is_super'=>$params['is_super'] ?? 1,
-                'status'=>$params['status'] ?? 1,
+            $data = [
+                'username' => $params['username'] ?? '',
+                'is_super'  => $params['is_super'] ?? 1,
+                'status'    => $params['status'] ?? 1,
             ];
-
             if(!empty($image_url)){
                 $data['image_url'] = $image_url;
             }
+
             $adminUser->updateUser($data,$params['id']);
-
-            //添加用户和角色关系
+            //添加用户和角色关联关系
             $userRole = new UserRole();
-
             //先删除之前的关联记录
             $userRole->delByUserId($params['id']);
-
             $data1 = [
-                'user_id'=>$params['id'],
-                "role_id"=>$params['role_id'] ?? 0
+                'user_id' => $params['id'],
+                'role_id' => $params['role_id'] ?? 0
             ];
             $userRole->addUserRole($data1);
-
             DB::commit();//提交事务
-        }catch (\Exception $e){
+        }catch(\Exception $e){
             DB::rollBack();//事务回滚
-
             Log::error('用户添加失败'.$e->getMessage());
-
             return redirect()->back()->with('error_msg',$e->getMessage());
         }
-        return redirect('/admin/user/list');
+        return redirect("/admin/user/list");
     }
-
-    //验证密码
-    public function  password(){
-        return view('admin.user.password');
+    //修改密码的页面
+    public function password()
+    {
+        return view('admin.users.password');
     }
-
-    //执行修改密码
-    public function doPassword(Request $request){
+    //执行密码修改
+    public function updatePwd(Request $request)
+    {
         $params = $request->all();
-        //检测密码是否正确
-        $adminUser = new AdminUsers();
-
-        $data = $this->getDataInfo($adminUser,$params['id']);
-        if($data->$password!=md5($params['old_password'])){
-            return redirect()->back()->with('msg','原密码错误');
+        //检测旧密码是否正确
+        $adminUsers = new AdminUsers();
+        $data = $this->getDataInfo($adminUsers, $params['id']);
+        if($data->password != md5($params['old_password'])){
+            return redirect()->back()->with('msg', '原密码错误');
         }
-
         //数据
         $datas = [
-            'password'=>md5($params['password'])
+            'password' => md5($params['password'])
         ];
         $adminUser1 = AdminUsers::find($params['id']);
-        $res = $this->storeData($adminUser1,$datas);
+        $res = $this->storeData($adminUser1, $datas);
         if(!$res){
-            return redirect()->back()->with('msg','密码修改失败');
+            return redirect()->back()->with('msg', '密码修改失败');
         }
         return redirect('/admin/user/list');
     }
-
-
-
 }

@@ -13,8 +13,8 @@
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="/js/html5shiv.js"></script>
-    <script src="/js/respond.min.js"></script>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
     <![endif]-->
 
     <!-- js文件 -->
@@ -76,31 +76,32 @@
                 @if(!empty($menus))
                     @foreach($menus as $menu)
                         @if(isset($menu['son']))
-                            <li class="nav-parent"><a href="{{\Route::has($menu['url']) ? route($menu['url']): '#'}}"><i class="fa fa-edit"></i> <span>{{$menu['name']}}</span></a>
+                            <li class="nav-parent"><a href="{{ \Route::has($menu['url']) ? route($menu['url']) : '#'}}"><i class="fa fa-edit"></i> <span>{{$menu['name']}}</span></a>
                                 <ul class="children">
                                     @foreach($menu['son'] as $m)
-                                    <li @if(\Route::currentRouteName() == $m['url']) class="son active" @endif><a href="{{\Route::has($m['url']) ? route($m['url']): '#'}}"><i class="fa fa-caret-right"></i>{{$m['name']}}</a></li>
+                                        <li @if(\Route::currentRouteName() == $m['url']) class="son active" @endif><a href="{{ \Route::has($m['url']) ? route($m['url']) : '#'}}"><i class="fa fa-caret-right"></i> {{$m['name']}}</a></li>
                                     @endforeach
                                 </ul>
                             </li>
                         @else
-                            判断首页是否存在
-                            <li @if(\Route::currentRouteName() == $menu['url']) class="active" @endif><a href="{{\Route::has($menu['url']) ? route($menu['url']): '#'}}"><i class="fa fa-home"></i> <span>{{$menu['name']}}</span></a></li>
-                        @endif
-                    @endforeach
-                @endif
+                            <li @if(\Route::currentRouteName() == $menu['url']) class="active" @endif><a href="{{ \Route::has($menu['url']) ? route($menu['url']) : '#'}}"><i class="fa fa-home"></i> <span>{{$menu['name']}}</span></a></li>
+                    @endif
 
-                {{--<li class="active"><a href="首页.html"><i class="fa fa-home"></i> <span>首页</span></a></li>--}}
-                    {{--<li class="nav-parent"><a href=""><i class="fa fa-edit"></i> <span>表单</span></a>--}}
-                        {{--<ul class="children">--}}
-                            {{--<li><a href="表单页面.html"><i class="fa fa-caret-right"></i> 添加/编辑表单</a></li>--}}
-                        {{--</ul>--}}
-                    {{--</li>--}}
-                {{--<li class="nav-parent"><a href=""><i class="fa fa-edit"></i> <span>列表</span></a>--}}
-                    {{--<ul class="children">--}}
-                        {{--<li><a href="列表模板.html"><i class="fa fa-caret-right"></i> 列表页面</a></li>--}}
-                    {{--</ul>--}}
-                {{--</li>--}}
+                @endforeach
+
+            @endif
+            <!--  <li class="active"><a href="首页.html"><i class="fa fa-home"></i> <span>首页</span></a></li>
+	        <li class="nav-parent"><a href=""><i class="fa fa-edit"></i> <span>表单</span></a>
+	          <ul class="children">
+	            <li><a href="表单页面.html"><i class="fa fa-caret-right"></i> 添加/编辑表单</a></li>
+	          </ul>
+	        </li>
+	        <li class="nav-parent"><a href=""><i class="fa fa-edit"></i> <span>列表</span></a>
+	          <ul class="children">
+	            <li><a href="列表模板.html"><i class="fa fa-caret-right"></i> 列表页面</a></li>
+	          </ul>
+	        </li> -->
+
             </ul>
 
         </div><!-- leftpanelinner -->
@@ -121,8 +122,8 @@
                     <li>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                <img src="{{$user_pic}}" alt="" />
-                                {{$username}}
+                                <img src="{{$user_pic or null}}" alt="" />
+                                {{$username or null}}
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
@@ -141,23 +142,22 @@
 
         <div class="contentpanel">
 
-            {{--布局变动额部分--}}
+            <!--布局变动的部分-->
             @yield('content')
+
         </div><!-- contentpanel -->
 
     </div><!-- mainpanel -->
 </section>
 
 <script type="text/javascript">
-    $('#left_menus li ul .son').each(function(){
-       if($(this).hasClass('active')){
-           $(this).parent('ul').css('display','block');
-           $(this).parent('ul').parent('li').addClass('nav-active');
-       }
+    $("#left_menus li ul .son").each(function(){
+        if($(this).hasClass('active')){
+            $(this).parent('ul').css('display','block');
+            $(this).parent('ul').parent('li').addClass('nav-active');
+        }
     });
 </script>
-
-
 
 </body>
 </html>

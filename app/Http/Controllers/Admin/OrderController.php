@@ -7,6 +7,7 @@ use App\Model\OrderGoods;
 use App\Model\Region;
 use App\Model\Member;
 use App\Tools\ToolsExcel;
+use App\Model\Goods;
 class OrderController extends Controller
 {
     //订单列表
@@ -49,8 +50,9 @@ class OrderController extends Controller
         $data = $this->getDataList($order);
         //导出的数据
         $exportData = [];
-        $head = ['order_sn','goods_price','user_id','consignee','phone','shipping_name','pay_name'];//excel的head头
-        $exportData[] = ['订单号','商品总价','用户id','收货人','收货人手机','配送方式','支付方式'];
+        $head = ['order_sn','goods_price','user_id','consignee','phone','shipping_name','pay_name','order_status','pay_status','address','confirm_time'];//excel的head头
+        $exportData[] = ['order_sn','goods_price','user_id','consignee','phone','shipping_name','pay_name','order_status','pay_status','address','confirm_time'];
+
         //组装打印的数据
         foreach ($data as $key => $value) {
             $tmpArr = [];
@@ -92,4 +94,5 @@ class OrderController extends Controller
         }
         return redirect('/admin/order/list');
     }
+
 }
