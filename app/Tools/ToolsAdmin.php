@@ -6,22 +6,23 @@ namespace App\Tools;
 class ToolsAdmin
 {
 
-    /*
-     * 无限极分类
+    /**
+     * 无限级分类的数据组装函数
      * @param $array $data
      * @param $fid 父类id
      */
-    public static function buildTree($data, $fid=0)
+    public static function buildTree($data, $fid=0, $fKey="fid")
     {
         if(empty($data)){
             return [];
         }
+        //echo $fKey;exit;
         //dd($data);
         static $menus = [];//定义一个静态变量，用来存储无限级分类的数据
         foreach ($data as $key => $value) {
-            //dd($value);
-
-            if($value['fid'] == $fid){//当前循环的内容中fid是否等于函数fid参数
+            //dd($value[$fKey],$fid);
+            //dd($value['f_id']);
+            if($value[$fKey] == $fid){//当前循环的内容中fid是否等于函数fid参数
                 if(!isset($menus[$fid])){//如果数据没有fid的key
                     $menus[$value['id']] = $value;
                 }else{
@@ -29,7 +30,7 @@ class ToolsAdmin
                 }
                 //删除已经添加过得数据
                 unset($data[$key]);
-                self::buildTree($data,$value['id']);//执行递归调用
+                self::buildTree($data,$value['id'],$fKey);//执行递归调用
             }
         }
         return $menus;
@@ -58,12 +59,19 @@ class ToolsAdmin
      * @param $files $object
      * @return string url
      */
-    public static function uploadFile($files)
+    public static function uploadFile($files,$isOss = true)
     {
         //参数为空
         if(empty($files)){
             return "";
         }
+        if($isOss){
+            //oss文件上传
+            $oss = new ToolsOss();
+            $url =  $oss->putFile($files);
+            return $url;
+        }
+
         //文件上传的目录
         $basePath = 'uploads/'.date("Y-m-d",time());
         //目录不存在
@@ -107,7 +115,7 @@ class ToolsAdmin
     //生成货号
     public static function buildGoodsSn($string = 16)
     {
-        return "JY".date("YmdHis",time());
+        return "JY".date("YmdH",time()).rand(1,1000);
     }
 
 }

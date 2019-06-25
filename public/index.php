@@ -9,7 +9,7 @@ $redis = new \Redis();
 
 $redis->connect('127.0.0.1','6379');
 
-$redis->set('liu','1232144');
+$redis->set('zou','1232144');
 define('LARAVEL_START', microtime(true));
 
 /*

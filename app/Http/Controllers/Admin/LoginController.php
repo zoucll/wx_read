@@ -13,10 +13,10 @@ class LoginController extends Controller
      */
     public function index(Request $request)
     {
-
         $session = $request->session();
         if($session->has('user')){//如果存在sesion信息的话不用登陆
-            return redirect('/admin/home');
+            return redirect('lantern.rantern');
+//            return redirect('/admin/home');
         }
         return view('admin.login');
     }

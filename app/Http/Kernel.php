@@ -60,5 +60,6 @@ class Kernel extends HttpKernel
         'check_age' => \App\Http\Middleware\CheckAge::class,//自定义一个检测年龄
         'admin_user' => \App\Http\Middleware\Useradmin::class,//自定义一个用户检测登录
         'admin_auth' => \App\Http\Middleware\AdminAuth::class,//自定义后台登录中间件
+        'shop'    => \App\Http\Middleware\ApiAuth::class,//自定义接口的中间Auth件
     ];
 }

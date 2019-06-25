@@ -40,3 +40,34 @@ Route::post('read/rank','Api\NovelController@bookRank');
 Route::post('novel/detail/{id}','Api\NovelController@detail');
 //小说章节列表接口
 Route::post('chapter/list/{novel_id}','Api\ChapterController@chapterList');
+
+/************************[首页]**********************/
+
+/************************电商类接口**********************/
+Route::prefix('shop')->group(function(){
+    //商品分类接口
+    Route::post('home/category','ShopApi\HomeController@category');
+    //首页banner图,广告位接口
+    Route::post('home/ad','ShopApi\HomeController@ad');
+    //商品类型的接口
+    Route::post('home/goods','ShopApi\HomeController@goodsList');
+    //品牌列表接口
+    Route::post('home/brands','ShopApi\HomeController@brand');
+    //最新文章接口
+    Route::post('home/newArticle','ShopApi\HomeController@newsArticle');
+});
+/************************电商类接口**********************/
+
+/************************练习接口**********************/
+Route::prefix('exercise')->group(function(){
+    //短信验证码验证
+    Route::post('ass/duan','Lian\LianController@duan');
+    //用户名判断
+    Route::any('ass/user','lian\LianController@user');
+    //短信验证码
+    Route::post('ass/duan','Lian\LianController@duan');
+    //登陆的接口
+    Route::post('ass/deng','Lian\LianController@deng');
+
+});
+/************************练习接口**********************/

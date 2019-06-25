@@ -3,7 +3,7 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
-    //
+    //文章表
     protected $table = "jy_article";
     //执行添加操作
     public function doAdd($data)
@@ -31,5 +31,15 @@ class Article extends Model
     public function del($id)
     {
         return self::where('id',$id)->delete();
+    }
+    //最新文章列表
+    public function getNewArticles($limit=5,$where=[])
+    {
+        return self::select('id','title')
+            ->where($where)
+            ->orderBy('publist_at','desc')
+            ->limit($limit)
+            ->get()
+            ->toArray();
     }
 }

@@ -17,7 +17,7 @@ Route::get('/', function () {
 });
 
 Route::any('zou/chun',function(){
-	
+
 })->name('zou');
 
 Route::get('/index', function () {
@@ -449,4 +449,23 @@ Route::prefix('study')->group(function(){
         Route::post('order/doImport','Admin\OrderController@doImport')->name('admin.order.doImport');
     ###############################[订单管理]###############################################
 
+
 });
+/*
+ * 练习的路由
+ */
+//Route::prefix('lian')->group(function (){//
+    //单利模式
+    Route::any('ass/index','DanliController@index');
+    //短信验证码验证
+    Route::any('ass/duan','LianController@duan');
+###############################[灯谜]###############################################
+    //用户名登录
+    Route::any('ass/index','Lian\LianController@index');
+    Route::any('ass/deng','Lian\LianController@deng');
+    Route::any('ass/riddles','Lian\IndexController@riddles');
+###############################[灯谜]###############################################
+
+//});
+
+
