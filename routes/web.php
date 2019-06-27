@@ -465,6 +465,9 @@ Route::prefix('study')->group(function(){
     Route::any('ass/deng','Lian\LianController@deng');
     Route::any('ass/riddles','Lian\IndexController@riddles');
 ###############################[灯谜]###############################################
+    Route::get('ass/login','Kao\IndexController@login');
+    Route::post('ass/doLogin','Kao\IndexController@doLogin');
+    Route::get('ass/list','Kao\IndexController@list');
 
 //});
 

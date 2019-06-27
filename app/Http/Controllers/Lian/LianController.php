@@ -78,9 +78,9 @@ class LianController extends Controller
         $session = $request->session();
 
         if($session->has('user')){
-            return view('lantern.rantern');
+            return view('lantern.rantern');//如果没有存session 就到登录页面
         }
-        return view('/lantern/login');
+        return view('/lantern/login');//存过的session条到后台页面
     }
     //登录的接口
     public function deng(Request $request){

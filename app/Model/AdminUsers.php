@@ -71,9 +71,4 @@ class AdminUsers extends Model
     public static  function del($id){
         return self::where('id',$id)->delete();
     }
-
-
-
-
-
 }
